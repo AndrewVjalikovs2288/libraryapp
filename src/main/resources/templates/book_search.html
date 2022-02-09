@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: main-fragment(
+                                                ~{:: title},
+                                                ~{},
+                                                ~{:: #content}
+                                               )}">
+<head>
+    <title>Search Books</title>
+</head>
+<body>
+<div class="container py-3">
+    <div id="content">
+        <form id="searchBooksForm" action="#" th:action="@{/books/search}" th:object="${book}" method="post" >
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" th:field="*{title}"/>
+            </div>
+            <div class="mb-3">
+                <label for="isbn" class="form-label">ISBN</label>
+                <input type="text" class="form-control" id="isbn" th:field="*{ISBN}"/>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="authors" class="form-label">Authors</label>
+                        <select id="authors" th:field="*{authors}" multiple="multiple" class="custom-select form-control" >
+                            <option th:each="author : ${allAuthors}"
+                                    th:value="${{author}}"
+                                    th:text="${author}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="language" class="form-label">Language</label>
+                        <select id="language" name="language" class="form-select" aria-label="Language" th:field="*{language}">
+                            <option value="ENG">English</option>
+                            <option value="LAT">Latvian</option>
+                            <option value="RUS">Russian</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="summary" class="form-label">Summary</label>
+                <input type="text" class="form-control" id="summary" th:field="*{summary}"/>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+            <button class="btn btn-secondary" type="reset" >Clear form</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

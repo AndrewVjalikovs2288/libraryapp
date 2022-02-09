@@ -1,0 +1,18 @@
+.card-list .card:hover {
+    cursor: pointer;
+}
+
+.row-link {
+    cursor: pointer;
+}
+
+.book-card .card-header {
+    cursor: auto;
+}
+
+.book-card .card-text {
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

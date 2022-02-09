@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: main-fragment(
+                                                ~{:: title},
+                                                ~{},
+                                                ~{:: #content}
+                                               )}">
+<head>
+    <title th:text="${author.id == null ? 'Add Author' : author}"></title>
+</head>
+<body>
+<div class="container py-3">
+    <div id="content">
+        <h2>New Author</h2>
+        <form id="authorForm" action="#" th:action="@{/authors/save}" th:object="${author}" method="post"
+              class="needs-validation" novalidate>
+            <input type="hidden" th:field="*{id}" />
+            <div class="row">
+                <div class="col-sm-6">
+                    <label for="firstName" class="form-label">First name</label>
+                    <input type="text" class="form-control" id="firstName" th:field="*{firstName}" required>
+                    <div class="invalid-feedback">
+                        Valid first name is required.
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label for="lastName" class="form-label">Last name</label>
+                    <input type="text" class="form-control" id="lastName" th:field="*{lastName}" required>
+                    <div class="invalid-feedback">
+                        Valid last name is required.
+                    </div>
+                </div>
+            </div>
+            <div class="row my-2">
+                <div class="col-sm-6">
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                    <button class="btn btn-secondary" type="button" onclick="history.back()">Back</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

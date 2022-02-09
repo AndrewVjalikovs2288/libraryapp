@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: main-fragment(
+                                                ~{:: title},
+                                                ~{},
+                                                ~{:: #content}
+                                               )}">
+<head>
+    <title th:text="${author}"></title>
+</head>
+<body>
+<div class="container py-3">
+    <div id="content">
+        <div class="row">
+            <div class="col-sm-1 fw-bold">First name:</div>
+            <div class="col-sm-11" th:text="${author.firstName}"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-1 fw-bold">Last name:</div>
+            <div class="col-sm-11" th:text="${author.lastName}"></div>
+        </div>
+        <div class="row my-2">
+            <div class="col-sm-6">
+                <ol class="list-group">
+                    <li class="list-group-item list-group-item-dark">Books</li>
+                    <li class="list-group-item disabled" aria-disabled="true"
+                        th:if="${#lists.isEmpty(author.books)}">No books available</li>
+                    <li class="list-group-item row-link"
+                        th:if="${not #lists.isEmpty(author.books)}"
+                        th:each="book : ${author.books}"
+                        th:text="${book.title}"
+                        th:onclick="|location.href='/books/${book.id}';|"
+                    ></li>
+                </ol>
+            </div>
+            <div class="row my-2">
+                <div class="col-sm-6">
+                    <button class="btn btn-secondary" type="button" onclick="history.back()">Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

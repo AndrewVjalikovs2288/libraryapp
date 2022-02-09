@@ -1,21 +1,17 @@
 package lv.autentica.library.services;
 
 import lv.autentica.library.dto.BookDto;
-import lv.autentica.library.entities.Author;
 import lv.autentica.library.entities.Book;
 import lv.autentica.library.enums.Languages;
 import lv.autentica.library.repositories.BookRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
+import org.springframework.util.CollectionUtils;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class BookService {
@@ -23,8 +19,11 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public void saveBook(Book newBook) {
-        bookRepository.save(newBook);
+    public Book saveBook(BookDto bookDto) throws Exception {
+        Book book = getEntityFromDto(bookDto);
+
+        bookRepository.save(book);
+        return book;
     }
 
     public List<Book> getAllBooks() {
@@ -65,5 +64,17 @@ public class BookService {
 
         dto.setLanguage(entity.getLanguage().name());
         return dto;
+    }
+
+    public Collection<Book> searchBooks(BookDto book) {
+        List<Long> authors = CollectionUtils.isEmpty(book.getAuthors())
+                ? null
+                : book.getAuthors().stream().map(a -> a.getId()).collect(Collectors.toList());
+        Collection<Book> results = bookRepository.searchBooks2(book.getTitle(),
+                book.getISBN(),
+                book.getSummary(),
+                Languages.valueOf(book.getLanguage()),
+                authors);
+        return results;
     }
 }

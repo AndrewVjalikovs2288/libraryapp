@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: main-fragment(
+                                                ~{:: title},
+                                                ~{},
+                                                ~{:: #content}
+                                               )}">
+<head>
+    <title th:text="${book.title}"></title>
+</head>
+<body>
+<div class="container py-3">
+    <div id="content">
+        <form id="newBookForm" action="#" th:action="@{/books/save}" enctype="multipart/form-data" th:object="${book}" method="post"
+              class="needs-validation" novalidate >
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" required th:field="*{title}"/>
+            </div>
+            <div class="mb-3">
+                <label for="isbn" class="form-label">ISBN</label>
+                <input type="text" class="form-control" id="isbn" th:field="*{ISBN}"/>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="authors" class="form-label">Authors</label>
+                        <select id="authors" th:field="*{authors}" multiple="multiple" class="custom-select form-control" required>
+                            <option th:each="author : ${allAuthors}"
+                                    th:value="${{author}}"
+                                    th:text="${author}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="language" class="form-label">Language</label>
+                        <select id="language" name="language" class="form-select" aria-label="Language" th:field="*{language}">
+                            <option value="ENG">English</option>
+                            <option value="LAT">Latvian</option>
+                            <option value="RUS">Russian</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="publishYear" class="form-label">Publishing Date</label>
+                        <input type="date" class="form-control" id="publishYear" aria-describedby="publishYearHelp" th:field="*{publishingDate}"/>
+                        <div id="publishYearHelp" class="form-text">Format - mm/dd/yyyy</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="pageCount" class="form-label">Page count</label>
+                        <input type="number" min="0" class="form-control" id="pageCount" th:field="*{pageCount}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="summary" class="form-label">Summary</label>
+                <textarea rows="3" class="form-control" id="summary" name="summary" aria-describedby="summaryHelp" required th:field="*{summary}"></textarea>
+                <div id="summaryHelp" class="form-text">Maximum length - 4000 symbols.</div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button class="btn btn-secondary" type="button" onclick="history.back()">Back</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
