@@ -1,3 +1,8 @@
+.img-max {
+  max-width: 120px;
+  width:100%;
+}
+
 .card-list .card:hover {
     cursor: pointer;
 }

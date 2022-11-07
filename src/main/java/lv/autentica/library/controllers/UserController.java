@@ -36,7 +36,7 @@ public class UserController {
             result.rejectValue("email", null, "There is already an account registered with that email");
         }
 
-        if (!userDto.getPassword().equals(userDto.getConfirmPassword())) {
+        if(!userDto.getPassword().equals(userDto.getConfirmPassword())) {
             result.rejectValue("password", null, "Passwords don't match");
         }
 
@@ -47,4 +47,5 @@ public class UserController {
         userService.save(userDto);
         return "redirect:/register?success";
     }
+
 }

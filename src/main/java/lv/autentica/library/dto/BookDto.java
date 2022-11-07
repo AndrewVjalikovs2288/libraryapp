@@ -19,6 +19,7 @@ public class BookDto {
     private String ISBN;
     private String publishingDate;
     private String language;
+    private MultipartFile cover;
     private int pageCount;
     private List<Author> authors;
 
@@ -97,6 +98,14 @@ public class BookDto {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public MultipartFile getCover() {
+        return cover;
+    }
+
+    public void setCover(MultipartFile cover) {
+        this.cover = cover;
     }
 
     public int getPageCount() {

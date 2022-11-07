@@ -65,6 +65,10 @@
                 <textarea rows="3" class="form-control" id="summary" name="summary" aria-describedby="summaryHelp" required th:field="*{summary}"></textarea>
                 <div id="summaryHelp" class="form-text">Maximum length - 4000 symbols.</div>
             </div>
+            <div class="mb-3">
+                <label for="cover" class="form-label">Book cover</label>
+                <input class="form-control" type="file" id="cover" name="cover" >
+            </div>
             <button type="submit" class="btn btn-primary">Submit</button>
             <button class="btn btn-secondary" type="button" onclick="history.back()">Back</button>
         </form>

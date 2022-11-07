@@ -9,8 +9,8 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "books")
-
 public class Book {
+
     @Id
     @SequenceGenerator(name = "book_sequence", sequenceName = "book_sequence")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_sequence")
@@ -33,6 +33,7 @@ public class Book {
     private Languages language;
 
     private int pageCount;
+    private String image;
 
     @ManyToMany
     @JoinTable(
@@ -64,6 +65,7 @@ public class Book {
                 ", year=" + year +
                 ", language=" + language +
                 ", pageCount=" + pageCount +
+                ", image='" + image + '\'' +
                 ", authors=" + authors +
                 '}';
     }
@@ -124,6 +126,14 @@ public class Book {
         this.pageCount = pageCount;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public List<Author> getAuthors() {
         return authors;
     }
@@ -132,4 +142,3 @@ public class Book {
         this.authors = authors;
     }
 }
-

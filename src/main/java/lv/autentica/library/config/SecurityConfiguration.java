@@ -22,7 +22,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/register**",
                         "/js/**",
                         "/css/**",
+                        "/images/**",
+                        "/uploads/**",
                         "/books**",
+                        "/books/search**",
                         "/").permitAll()
                 .antMatchers("/authors**").hasRole("ADMIN")
                 .anyRequest().authenticated()

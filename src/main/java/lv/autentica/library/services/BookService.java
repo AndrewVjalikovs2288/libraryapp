@@ -4,11 +4,15 @@ import lv.autentica.library.dto.BookDto;
 import lv.autentica.library.entities.Book;
 import lv.autentica.library.enums.Languages;
 import lv.autentica.library.repositories.BookRepository;
+import lv.autentica.library.utils.FileUploadUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -18,10 +22,16 @@ public class BookService {
 
     @Autowired
     private BookRepository bookRepository;
+    @Value("${file.upload.dir}")
+    private String fileUploadDir;
 
     public Book saveBook(BookDto bookDto) throws Exception {
         Book book = getEntityFromDto(bookDto);
-
+        if(bookDto.getCover() != null && StringUtils.hasText(bookDto.getCover().getOriginalFilename())) {
+            String fileName = StringUtils.cleanPath(bookDto.getCover().getOriginalFilename());
+            FileUploadUtils.saveFile(fileUploadDir, fileName, bookDto.getCover());
+            book.setImage(fileName);
+        }
         bookRepository.save(book);
         return book;
     }

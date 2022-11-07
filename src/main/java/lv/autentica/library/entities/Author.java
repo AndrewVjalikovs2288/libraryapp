@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "authors")
-
 public class Author {
+
     @Id
     @SequenceGenerator(name = "author_sequence", sequenceName = "author_sequence")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "author_sequence")
@@ -85,5 +85,4 @@ public class Author {
     public void setBooks(List<Book> books) {
         this.books = books;
     }
-
 }

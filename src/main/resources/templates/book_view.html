@@ -16,6 +16,9 @@
         <div class="card my-2" th:if="${book != null}">
             <h5 class="card-header" th:text="${book.title}"></h5>
             <div class="row g-0">
+                <div class="col-md-3">
+                    <img th:src="@{'/uploads/' + ${book.image}}" class="img-fluid rounded-start" >
+                </div>
                 <div class="col-md-9">
                     <div class="card-body">
                         <div class="row card-text">
